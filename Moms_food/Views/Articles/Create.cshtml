@@ -1,0 +1,170 @@
+﻿@model Moms_food.Data.ArticlesModels.ArticleViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*<link href="~/Scripts/summernote/summernote.css" rel="stylesheet" />
+<script src="~/Scripts/summernote/summernote.js"></script>*@
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Articles</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })*@
+            <textarea class="form-control" name="Description"></textarea>
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="ImgFile" name="ImgFile" width="290" height="249" required />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="ImgFileslider" name="ImgFileslider" width="290" height="249" required />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Categorie_id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Categorie_id, null, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Categorie_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <input id="btnAdd" type="button" value="Add Ingredient" onclick="AddTextBox()" />
+    <br />
+    <br />
+    <div id="TextBoxContainer">
+        <!--Textboxes will be added here -->
+    </div>
+    <br />
+
+
+    <input id="btnAdd" type="button" value="Add Stept" onclick="AddTextArea()" />
+    <br />
+    <br />
+    <div id="TextAreaContainer">
+        <!--Textboxes will be added here -->
+    </div>
+    <br />
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+@*<script>
+
+    $('#step').summernote({
+        height: 300,                 // set editor height
+        minHeight: null,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+        focus: true
+
+    });
+</script>*@
+<script type="text/javascript">
+    AddTextBox();
+        function GetDynamicTextBox(value) {
+            var div = $("<div />");
+
+            var textBox = $("<input />").attr("type", "textbox").attr("name", "ingredient");
+            textBox.val(value);
+            div.append(textBox);
+
+            var button = $("<input />").attr("type", "button").attr("value", "Remove").attr("class", "btn btn-default");
+            button.attr("onclick", "RemoveTextBox(this)");
+            div.append(button);
+
+            return div;
+        }
+        function AddTextBox() {
+            var div = GetDynamicTextBox("");
+            $("#TextBoxContainer").append(div);
+        }
+
+        function RemoveTextBox(button) {
+            $(button).parent().remove();
+        }
+
+        $(function () {
+            var values = eval('@Html.Raw(ViewBag.Values)');
+            if (values != null) {
+                $("#TextBoxContainer").html("");
+                $(values).each(function () {
+                    $("#TextBoxContainer").append(GetDynamicTextBox(this));
+                });
+            }
+        });
+</script>
+<script type="text/javascript">
+    AddTextArea();
+    function GetDynamicTextArea(value) {
+        var div = $("<div />");
+        var button = $("<input />").attr("type", "button").attr("value", "Remove").attr("class", "btn btn-default");
+        button.attr("onclick", "RemoveTextArea(this)");
+        div.append(button);
+
+        //var imgStep = $("<input />").attr("type", "file").attr("class", "btn btn-default");
+        //div.append(imgStep);
+        div.append("</br>");
+        var TextArea = $("<textarea />").attr("name", "step").attr("class", "form-control");
+            TextArea.val(value);
+        div.append(TextArea);
+
+
+
+
+            return div;
+        }
+    function AddTextArea() {
+            var div = GetDynamicTextArea("");
+            $("#TextAreaContainer").append(div);
+        }
+
+    function RemoveTextArea(button) {
+            $(button).parent().remove();
+        }
+
+        $(function () {
+            var values = eval('@Html.Raw(ViewBag.Values)');
+            if (values != null) {
+                $("#TextAreaContainer").html("");
+                $(values).each(function () {
+                    $("#TextAreaContainer").append(GetDynamicTextArea(this));
+                });
+            }
+        });
+</script>

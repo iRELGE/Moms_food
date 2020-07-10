@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Moms_food.Data;
+using Moms_food.Data.ArticlesModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,13 @@ namespace Moms_food.Controllers
 {
     public class HomeController : Controller
     {
+        private Moms_FoodEntities db = new Moms_FoodEntities();
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel hvm = new HomeViewModel();
+            hvm.article= db.Articles.ToList();
+            hvm.slider = db.Slider.ToList();
+            return View(hvm);
         }
 
         public ActionResult About()

@@ -1,31 +1,294 @@
-﻿@{
+﻿@model Moms_food.Data.ArticlesModels.HomeViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!-- Hero section -->
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        @foreach (var a in Model.slider.Take(3))
+        {
+            <a href=@a.link>
+                <div class="hero-slide-item set-bg" data-setbg=@a.Photo>
+                    <div class="hs-text">
+                        <h2 class="hs-title-1"><span>@a.Articles.Food_categories.name</span></h2>
+                        <h2 class="hs-title-2"><span>from @a.Articles.User.Name</span></h2>
+                        <h2 class="hs-title-3"><span>@a.Articles.Title</span></h2>
+                    </div>
+                </div>
+            </a>
+        }
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+<!-- Hero section end -->
+<!-- Add section end -->
+<section class="add-section spad">
+    <div class="container">
+        <div class="add-warp">
+            <div class="add-slider owl-carousel">
+                @foreach (var a in Model.slider)
+                {
+                    <div class="as-item set-bg" data-setbg=@a.Photo></div>
+                }
+            </div>
+            <div class="row add-text-warp">
+                <div class="col-lg-4 col-md-5 offset-lg-8 offset-md-7">
+                    <div class="add-text text-white">
+                        <div class="at-style"></div>
+                        <h2>Amazing deserts</h2>
+                        <ul>
+                            <li>Easy to make</li>
+                            <li>Step by Step Video Tutorial</li>
+                            <li>Gluten Free</li>
+                            <li>Healty  Ingredients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</section>
+<!-- Add section end -->
+<!-- Recipes section -->
+<section class="recipes-section spad pt-0">
+    <div class="container">
+        <div class="section-title">
+            <h2>Latest recipes</h2>
+        </div>
+        <div class="row">
+            @foreach (var a in Model.article.Take(6))
+            {
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="recipe">
+                        <img src=@a.Photos alt="">
+                        <div class="recipe-info-warp">
+                            <div class="recipe-info">
+                                <a href="/Articles/Details/@a.ID">
+                                    <h3>@a.Title</h3>
+                                </a>
+                                <div class="rating">
+
+
+                                    @{
+                                        double? note;
+                                        if (a.Reviews.Average(p => p.note)  == null)
+                                        {
+                                            note = 0;
+                                        }
+                                        else
+                                        {
+                                            note = a.Reviews.Average(p => p.note);
+                                        }
+                                        var starNumber = 5;
+                                        for (int i = 0; i <= note - 1; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                        if (note % 1 != 0)
+                                        {
+                                            <i class="fa fa-star-half-empty "></i>
+
+                                            starNumber = 4;
+                                        }
+                                        for (var i = note; i < starNumber; i++)
+                                        {
+
+                                            <i class="fa fa-star-o"></i>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
+</section>
+<!-- Recipes section end -->
+<!-- Footer widgets section -->
+<section class="bottom-widgets-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 ftw-warp">
+                <div class="section-title">
+                    <h3>Top rated recipes</h3>
+                </div>
+                <ul class="sp-recipes-list">
+                    @foreach (var a in Model.article.OrderByDescending(b => b.Reviews.Average(p => p.note) / 2).Take(5))
+                    {
+                    <li>
+                        <div class="rl-thumb set-bg" data-setbg=@a.Photos></div>
+                        <div class="rl-info">
+                            <span>@a.Date_creation.Value.ToString("MMMM dd, yyyy")</span>
+                            <a href="/Articles/details/@a.ID">
+                                <h6>@a.Title</h6>
+                            </a>
+                            <div class="rating">
+                                @{
+                                    double? note;
+                                    if (a.Reviews.Average(p => p.note)  == null)
+                                    {
+                                        note = 0;
+                                    }
+                                    else
+                                    {
+                                        note = a.Reviews.Average(p => p.note) ;
+                                    }
+                                    var starNumber = 5;
+                                    for (int i = 0; i <= note - 1; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    if (note % 1 != 0)
+                                    {
+                                        <i class="fa fa-star-half-empty "></i>
+
+                                        starNumber = 4;
+                                    }
+                                    for (var i = note; i < starNumber; i++)
+                                    {
+
+                                        <i class="fa fa-star-o"></i>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    }
+
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 ftw-warp">
+                <div class="section-title">
+                    <h3>Most liked recipes</h3>
+                </div>
+                <ul class="sp-recipes-list">
+                    @foreach (var a in Model.article.OrderByDescending(p => p.Reviews.Count()).Take(5))
+                    {
+                    <li>
+                        <div class="rl-thumb set-bg" data-setbg=@a.Photos></div>
+                        <div class="rl-info">
+                            <span>@a.Date_creation.Value.ToString("MMMM dd, yyyy")</span>
+                            <h6>@a.Title</h6>
+                            <div class="rating">
+                                @{
+                                    double? note;
+                                    if (a.Reviews.Average(p => p.note)== null)
+                                    {
+                                        note = 0;
+                                    }
+                                    else
+                                    {
+                                        note = a.Reviews.Average(p => p.note);
+                                    }
+                                    var starNumber = 5;
+                                    for (int i = 0; i <= note - 1; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    if (note % 1 != 0)
+                                    {
+                                        <i class="fa fa-star-half-empty "></i>
+
+                                        starNumber = 4;
+                                    }
+                                    for (var i = note; i < starNumber; i++)
+                                    {
+
+                                        <i class="fa fa-star-o"></i>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    }
+
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <div class="sp-blog-item">
+                    <div class="blog-thubm">
+                        <img src=@Model.article.First().Photos alt="">
+                        <div class="blog-date">
+                            <span>May 04, 2018</span>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h5>Italian restaurant Review</h5>
+                        <span>By Maria Williams</span>
+                        <p>Donec quam felis, ultricies nec, pellente sque eu, pretium quis, sem. Nulla conseq uat massa quis enim. </p>
+                        <a href="#" class="comment">2 Comments</a>
+                        <a href="#" class="readmore"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer widgets section end -->
+<!-- Review section end -->
+<section class="review-section">
+    <div class="container">
+        <div class="row">
+            @foreach (var a in Model.article.OrderByDescending(p => p.Reviews.Count()).OrderByDescending(b => b.Reviews.Average(p => p.note) ).Take(2))
+            {
+            <div class="col-lg-6 col-md-8 offset-lg-0 offset-md-2">
+                <div class="review-item">
+                    <div class="review-thumb set-bg" data-setbg=@a.Photos>
+                        <div class="review-date">
+                            <span>
+                                @a.Date_creation.Value.ToString("MMMM dd, yyyy")
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        <span>March 14, 2018</span>
+                        <h6>Feta Cheese Burgers</h6>
+                        <div class="rating">
+                            @{
+                                double? note;
+                                if (a.Reviews.Average(p => p.note) == null)
+                                {
+                                    note = 0;
+                                }
+                                else
+                                {
+                                    note = a.Reviews.Average(p => p.note);
+                                }
+                                var starNumber = 5;
+                                for (int i = 0; i <= note - 1; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                if (note % 1 != 0)
+                                {
+                                    <i class="fa fa-star-half-empty "></i>
+
+                                    starNumber = 4;
+                                }
+                                for (var i = note; i < starNumber; i++)
+                                {
+
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            }
+                        </div>
+                        <div class="author-meta">
+                            <div class="author-pic set-bg" data-setbg="img/author.jpg"></div>
+                            <p>By Janice Smith</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!-- Review section end -->

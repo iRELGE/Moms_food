@@ -1,0 +1,395 @@
+﻿@model Moms_food.Data.Articles
+
+@{
+    ViewBag.Title = "Details";
+}
+<link href="~/Content/css/ratingStyle.css" rel="stylesheet" />
+
+<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+    <div class="container">
+        <h2>@Model.Title</h2>
+    </div>
+</section>
+<!-- Hero section end -->
+@*<!-- Search section -->
+    <div class="search-form-section">
+        <div class="sf-warp">
+            <div class="container">
+                <form class="big-search-form">
+                    <select>
+                        <option>All Recipes Categories</option>
+                        @foreach (var a in Model.)
+                        {
+                        <option>Pizza</option>
+                        <option>Salads</option>
+                        <option>Desserts</option>
+                        <option>Side Dishes</option>
+                        }
+                    </select>
+                    <select>
+                        <option>All Ingredients</option>
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                    </select>
+                    <input type="text" placeholder="Search Receipies">
+                    <button class="bsf-btn">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Search section end -->*@
+<!-- Recipe big view -->
+<div class="recipe-view-section">
+    <div class="rv-warp set-bg" data-setbg=@Model.Photos></div>
+</div>
+
+<!-- Recipe details section -->
+<section class="recipe-details-section">
+    <div class="container">
+        <div class="recipe-meta">
+            <div class="racipe-cata">
+                <span>@Model.Food_categories.name</span>
+            </div>
+            <h2>Lamb Chops with green peper sauce</h2>
+            <div class="recipe-date">May 15, 2018</div>
+            <div class="rating d-flex flex-row">
+                @{
+                    double? note;
+                    if (Model.Reviews.Average(p => p.note)== null)
+                    {
+                        note = 0;
+                    }
+                    else
+                    {
+                        note = Model.Reviews.Average(p => p.note);
+                    }
+                    var starNumber = 5;
+                    for (int i = 0; i <= note - 1; i++)
+                    {
+                        <i class="fa fa-star"></i>
+                    }
+                    if (note % 1 != 0)
+                    {
+                        <i class="fa fa-star-half-empty "></i>
+
+                        starNumber = 4;
+                    }
+                    for (var i = note; i < starNumber; i++)
+                    {
+
+                        <i class="fa fa-star-o"></i>
+                    }
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="recipe-filter-warp">
+                    <div class="filter-top">
+                        <div class="filter-top-text">
+                            <p>Prep: 15 mins</p>
+                            <p>Cook: 30 mins</p>
+                            <p>Yields: 8 Servings</p>
+                        </div>
+                    </div>
+                    <!-- recipe filter form -->
+                    <div class="filter-form-warp">
+                        <h2>Ingredients</h2>
+                        <form class="filter-form">
+                            @foreach (var a in Model.ingredient)
+                            {
+                                <div class="check-warp">
+                                    <input type="checkbox" id=@a.Id>
+                                    <label for=@a.Id>@a.ingredients</label>
+                                </div>
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <ul class="recipe-info-list">
+                    @{ int b = 0; }
+                    @foreach (var a in Model.Steps)
+                    {
+
+                        b = b + 1;
+
+                        <li>
+                            <h2>@b.</h2>
+                            <p>@a.Description</p>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Recipe details section end -->
+<!-- Comment section -->
+@*<div class="container">
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    <p class="text-secondary text-center">15 Minutes Ago</p>
+                </div>
+                <div class="col-md-10">
+                    <p>
+                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                    </p>
+                    <div class="clearfix"></div>
+                    <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                </div>
+            </div>
+            <div class="card card-inner">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                            <p class="text-secondary text-center">15 Minutes Ago</p>
+                        </div>
+                        <div class="col-md-10">
+                            <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
+                            <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-inner">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                            <p class="text-secondary text-center">15 Minutes Ago</p>
+                        </div>
+                        <div class="col-md-10">
+                            <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
+                            <textarea class="col-md-10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    <p class="text-secondary text-center">15 Minutes Ago</p>
+                </div>
+                <div class="col-md-10">
+                    <p>
+                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                    </p>
+                    <div class="clearfix"></div>
+                    <textarea class="col-md-10"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>*@
+<!-- Contenedor Principal -->
+
+<div class="comments-container">
+    
+    <ul id="comments-list" class="comments-list">
+       @{int d=0;}
+        @foreach (var c in Model.Reviews)
+        {
+        <li>
+            <div class="comment-main-level">
+                <!-- Avatar -->
+                @if (@c.User.photo != null)
+                {
+                    <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
+                }
+                else
+                {
+                    <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@c.User.Name></div>
+                }
+                <!-- Contenedor del Comentario -->
+                <div class="comment-box">
+                    <div class="comment-head">
+                        <h6 class="comment-name by-author"><a href="/Articles/Details/@c.ArticlesID">@c.User.Name</a></h6>
+                        <span>hace 20 minutos</span>
+                        <i class="fa fa-reply"></i>
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="comment-content">
+                        @c.Description
+                    </div>
+                </div>
+            </div>
+            <!-- Respuestas de los comentarios -->
+            <ul class="comments-list reply-list">
+                @foreach (var a in c.Reviews_response)
+                {
+                <li>
+                    <!-- Avatar -->
+                    @if (@a.User.photo != null)
+                    {
+                        <div class="comment-avatar"><img src=@a.User.photo alt=@a.User.Name></div>
+                    }
+                    else
+                    {
+                        <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@a.User.Name></div>
+                    }
+                    <!-- Contenedor del Comentario -->
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name"><a href="http://creaticode.com/blog">@a.User.Name</a></h6>
+                            <span>hace 10 minutos</span>
+                            <i class="fa fa-reply"></i>
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="comment-content">
+                            @a.Description
+                        </div>
+                    </div>
+                </li>
+                }
+
+                <li>
+                    <!-- Avatar -->
+                    <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
+                    <!-- Contenedor del Comentario -->
+                    @using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.Hidden("reviews_response.ReviewsID", c.ID)
+                        @Html.HiddenFor(model => model.ID)
+
+                        @Html.AntiForgeryToken()
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                <span>hace 10 minutos</span>
+                                @{b = b + 1;}
+
+                                <div class="rating">
+
+                                    <input type="radio" name="reviews_response.note" value="5" id="@b+5"><label for="@b+5">☆</label>
+                                    <input type="radio" name="reviews_response.note" value="4" id="@b+4"><label for="@b+4">☆</label>
+                                    <input type="radio" name="reviews_response.note" value="3" id="@b+3"><label for="@b+3">☆</label>
+                                    <input type="radio" name="reviews_response.note" value="2" id="@b+2"><label for="@b+2">☆</label>
+                                    <input type="radio" name="reviews_response.note" value="1" id="@b+1"><label for="@b+1">☆</label>
+                                </div>
+                            </div>
+
+                            <div class="comment-content">
+
+                                <input type="text" name="reviews_response.Description" class="col-md-12" />
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </li>
+            </ul>
+        </li>
+        }
+       
+
+        <li>
+            <div class="comment-main-level">
+                <!-- Avatar -->
+                <div class="comment-avatar"><img src="" alt=""></div>
+                <!-- Contenedor del Comentario -->
+                @using (Html.BeginForm("Create", "Articles", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                            <span>hace 10 minutos</span>
+
+                            @{b = b + 1;}
+                            <div class="rating">
+                                
+                                <input type="radio" name="Reviews.note" value="5" id="@b+5"><label for="@b+5">☆</label>
+                                <input type="radio" name="Reviews.note" value="4" id="@b+4"><label for="@b+4">☆</label>
+                                <input type="radio" name="Reviews.note" value="3" id="@b+3"><label for="@b+3">☆</label>
+                                <input type="radio" name="Reviews.note" value="2" id="@b+2"><label for="@b+2">☆</label>
+                                <input type="radio" name="Reviews.note" value="1" id="@b+1"><label for="@b+1">☆</label>
+                            </div>
+                        </div>
+
+                        <div class="comment-content">
+
+                            <input type="text" name="Reviews.Description" class="col-md-12" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                                }
+            </div>
+           
+
+
+        </li>
+                                
+    </ul>
+</div>
+
+
+
+
+
+@*<section class="comment-section spad pt-0">
+        <div class="container">
+            <h4>Leave a comment</h4>
+            <form class="comment-form">
+                <input id="input-4-ltr-star-lg" name="input-4-ltr-stars-lg" class="kv-ltr-theme-default-star rating-loading" value="4" dir="ltr" data-size="lg">
+                <div class="row">
+
+
+
+                    <div class="col-md-6">
+                        <input type="text" placeholder="Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" placeholder="E-mail">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" placeholder="Subject">
+                        <textarea placeholder="Message"></textarea>
+                        <button class="site-btn">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>*@
+<!-- Comment section -->
+<script>
+    //$(document).ready(function () {
+    //    $('.kv-ltr-theme-default-star').rating({
+    //        hoverOnClear: false,
+    //        containerClass: 'is-star'
+    //    });
+    //});
+</script>
+

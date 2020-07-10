@@ -1,0 +1,110 @@
+﻿@model IPagedList<Moms_food.Data.Articles>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Hero section -->
+<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+    <div class="container">
+        <h2>Recipes</h2>
+    </div>
+</section>
+<!-- Hero section end -->
+<!-- Search section -->
+<div class="search-form-section">
+    <div class="sf-warp">
+        <div class="container">
+            <form class="big-search-form">
+                <select>
+                    <option>All Recipes Categories</option>
+                    <option>Pizza</option>
+                    <option>Salads</option>
+                    <option>Desserts</option>
+                    <option>Side Dishes</option>
+                </select>
+                <select>
+                    <option>All Ingredients</option>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                </select>
+                <input type="text" placeholder="Search Receipies">
+                <button class="bsf-btn">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Search section end -->
+<!-- Recipes section -->
+<section class="recipes-page spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="section-title">
+                    <h2>Latest recipes</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="recipe-view">
+                    <i class="fa fa-bars"></i>
+                    <i class="fa fa-th active"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.OrderBy(p => p.Reviews.Count()).ToList().OrderBy(b => b.Reviews.Average(p => p.note) / 2).ToList())
+            {
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="recipe">
+                        <img src=@item.Photos alt="">
+                        <div class="recipe-info-warp">
+                            <div class="recipe-info">
+                                <a href="/Articles/details/@item.ID">
+                                    <h3>@item.Title</h3>
+                                </a>
+                                <div class="rating">
+                                    @{
+                                        double? note;
+                                        if (item.Reviews.Average(p => p.note) / 2 == null)
+                                        {
+                                            note = 0;
+                                        }
+                                        else
+                                        {
+                                            note = item.Reviews.Average(p => p.note) / 2;
+                                        }
+                                        var starNumber = 5;
+                                        for (int i = 0; i < note - 1; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                        if (note % 1 != 0)
+                                        {
+                                            <i class="fa fa-star-half-empty "></i>
+
+                                            starNumber = 4;
+                                        }
+                                        for (var i = note; i < starNumber; i++)
+                                        {
+
+                                            <i class="fa fa-star-o"></i>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="site-pagination">
+            <nav aria-label="Page navigation example">@Html.PagedListPager(Model, i => Url.Action("Index", "Recipes", new { i, search = Request.QueryString["search"] }))</nav>
+        </div>
+    </div>
+</section>
+<!-- Recipes section end -->

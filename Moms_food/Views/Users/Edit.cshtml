@@ -1,0 +1,333 @@
+﻿@model Moms_food.Data.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <h3></h3>"
+    <div class="row flex-lg-nowrap">
+        <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+            <div class="card p-3">
+                <div class="e-navlist e-navlist--active-bg">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
+                        <li class="nav-item"><a class="nav-link px-2" href="./users.html"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
+                        <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+
+
+            <div class="row">
+
+                @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "col mb-3", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.id_identity)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="e-profile">
+                                <div class="row">
+                                    <div class="col-12 col-sm-auto mb-3">
+                                        <div class="mx-auto" style="width: 140px;">
+                                            @*<div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                        <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                                    </div>*@
+                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                @if (Model.photo != null)
+                                                {
+                                                    @*<span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>*@
+                                                    <img style="border-radius: 16px;" id="Photo" class="h-100" src=@Model.photo />
+                                                }
+                                                else 
+                                                {
+                                                    <img style="border-radius: 16px;" id="Photo" class="h-100" src="~/img/default-profile.png" />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                        <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">@Model.Name @Model.LastName</h4>
+                                            <p  class="mb-0">@Model.Sexe</p>
+                                            <div class="text-muted"><small>Last seen</small></div>
+                                            <div class="mt-2">
+                                                @*<button class="btn btn-primary" type="button">
+                                            <i class="fa fa-fw fa-camera"></i>
+                                            <span>Change Photo</span>
+                                        </button>*@
+                                                <div class="image-upload">
+                                                    <label for="fileinput" class="btn btn-primary">
+                                                        <a>
+                                                            <i class="fa fa-fw fa-camera"></i>
+                                                        </a>
+                                                    </label>
+
+                                                    <input style="display: none;" id="fileinput" name="ImgFile" value="" type="file" onChange="img_pathUrl(this);" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center text-sm-right">
+                                            <span name="Status" class="badge badge-secondary">@Model.Status</span>
+                                            <div class="text-muted"><small name="Date_inscription">Joined  @Model.Date_inscription.Value.ToString("MMMM dd, yyyy")</small></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                </ul>
+                                <div class="tab-content pt-3">
+                                    <div class="tab-pane active">
+                                        <form class="form" novalidate="">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Sexe   </label>
+                                                                <br />
+                                                                @if (Model.Sexe == "Man")
+                                                                {
+                                                                  
+
+
+                                                                    <label>
+                                                                        <i class="fa fa-male"></i> <input type="radio" name="sex" value="male" checked>Male
+                                                                    </label>
+                                                                    <br>
+                                                                    <label>
+                                                                        <i class="fa fa-female" aria-hidden="true"></i> <input type="radio" name="sex" value="female">Female
+                                                                    </label>
+
+                                                                }
+                                                                else if (Model.Sexe == "Women")
+                                                                {
+                                                                    <i class="fa fa-male"></i><input type="radio" name="Sexe" value="Man" />
+
+                                                                    <i class="fa fa-female" aria-hidden="true"></i><input type="radio" name="Sexe" value="Women" checked />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <i class="fa fa-male"></i><input type="radio" name="Sexe" value="Man" />
+
+                                                                    <i class="fa fa-female" aria-hidden="true"></i><input type="radio" name="Sexe" value="Women" />
+                                                                }
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                       
+                                                       
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Full Name</label>
+                                                                <input class="form-control" type="text" name="Name" value="@Model.Name" placeholder="Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Username</label>
+                                                                <input class="form-control" type="text" name="LastName" value="@Model.LastName" placeholder="LastName">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Country</label>
+                                                                <input class="form-control" type="text"    value="@Model.Country" placeholder="Country">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>City</label>
+                                                                <input class="form-control" type="text"    value="@Model.City" placeholder="City">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                               
+                                                                <div class="col-md-14">
+                                                                    @Html.DropDownList("Country", null, "Choose a Country", htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(Model => Model.Country, "", new { @class = "text-danger" })
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <div class="col-md-14">
+                                                                    @Html.DropDownList("City", new SelectList(""), "Choose a City", htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(Model => Model.City, "", new { @class = "text-danger" })
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input class="form-control" type="text" name="Email" value="@Model.Email" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Phone</label>
+                                                                <input class="form-control" type="text" name="Telephone" value="@Model.Telephone" placeholder="Phone">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Adress</label>
+                                                                <input class="form-control" type="text" name="Adress" value="@Model.Adress" placeholder="Adress">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <div class="form-group">
+                                                                <label>About</label>
+                                                                <textarea class="form-control" rows="5" name="About" placeholder="My Bio">@Model.About</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="row">
+                                              
+
+
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                }
+
+                <div class="col-12 col-md-3 mb-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                            <div class="px-xl-3">
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                @Html.AntiForgeryToken()
+
+                                <button href="Account/LogOff" class="btn btn-block btn-secondary">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>Logout</span>
+                                </button>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title font-weight-bold">Support</h6>
+                            <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                            <button type="button" class="btn btn-primary">Contact Us</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function img_pathUrl(input) {
+        $('#Photo')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+    }
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://countries-cities.p.rapidapi.com/location/country/list?format=json",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "countries-cities.p.rapidapi.com",
+            "x-rapidapi-key": "3fbd7cf207mshb0233f07f9ca952p1a5fc6jsn79ace0994587"
+        }
+    }
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        $.each(response.countries, function (index, row) {
+            $("#Country").append("<option name='Country'  value ='" + index + "'>" + row + "</option>")
+
+           
+        });
+    });
+
+   
+
+          
+    $("#Country").change(function () {
+        $("#City").empty();
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://countries-cities.p.rapidapi.com/location/country/"+$("#Country").val()+"/city/list?page=2&per_page=20&format=json&population=15000",
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "countries-cities.p.rapidapi.com",
+                "x-rapidapi-key": "3fbd7cf207mshb0233f07f9ca952p1a5fc6jsn79ace0994587"
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            $.each(response.cities, function (index, row) {
+                $("#City").append("<option name='City' value ='" + row.name + "'>" + row.name + "</option>")
+
+                console.log(row);
+            });
+        });
+           
+             
+            });
+       
+   
+        
+   
+
+
+</script>

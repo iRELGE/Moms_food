@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c6fbb55039cb46be800b2d3dce7b7fae" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="Moms_FoodModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Articles" Width="1.5" PointX="7.5" PointY="5.125" />
+        <EntityTypeShape EntityType="Moms_FoodModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="9" />
+        <EntityTypeShape EntityType="Moms_FoodModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="10.25" />
+        <EntityTypeShape EntityType="Moms_FoodModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="Moms_FoodModel.AspNetUsers" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Food_categories" Width="1.5" PointX="5.25" PointY="17.375" />
+        <EntityTypeShape EntityType="Moms_FoodModel.ingredient" Width="1.5" PointX="9.75" PointY="12.5" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Photos" Width="1.5" PointX="12" PointY="3.5" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Reviews" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Reviews_response" Width="1.5" PointX="15" PointY="5.875" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Slider" Width="1.5" PointX="9.75" PointY="6.25" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Steps" Width="1.5" PointX="9.75" PointY="3.375" />
+        <EntityTypeShape EntityType="Moms_FoodModel.Tag" Width="1.5" PointX="5.25" PointY="1.875" />
+        <EntityTypeShape EntityType="Moms_FoodModel.User" Width="1.5" PointX="5.25" PointY="4.75" />
+        <AssociationConnector Association="Moms_FoodModel.FK_Articles_categ" />
+        <AssociationConnector Association="Moms_FoodModel.FK_ingredient_ToArticles" />
+        <AssociationConnector Association="Moms_FoodModel.FK_Slider_ToArticle" />
+        <AssociationConnector Association="Moms_FoodModel.FKArticles220110" />
+        <AssociationConnector Association="Moms_FoodModel.FKReviews156781" />
+        <AssociationConnector Association="Moms_FoodModel.FKSteps414313" />
+        <AssociationConnector Association="Moms_FoodModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Moms_FoodModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Moms_FoodModel.FK_User_identityId" />
+        <AssociationConnector Association="Moms_FoodModel.FKPhotos857504" />
+        <AssociationConnector Association="Moms_FoodModel.FKReviews92030" />
+        <AssociationConnector Association="Moms_FoodModel.FKReviews_re484737" />
+        <AssociationConnector Association="Moms_FoodModel.FKReviews_re306697" />
+        <AssociationConnector Association="Moms_FoodModel.Articles_Tag" />
+        <AssociationConnector Association="Moms_FoodModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

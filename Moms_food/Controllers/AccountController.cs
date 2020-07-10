@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Moms_food.Data;
 using Moms_food.Models;
 
 namespace Moms_food.Controllers
@@ -15,6 +16,8 @@ namespace Moms_food.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+       
+        private Moms_FoodEntities db = new Moms_FoodEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -58,6 +61,11 @@ namespace Moms_food.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+        public ActionResult AuthNav()
+        {
+           
             return View();
         }
 
@@ -156,7 +164,17 @@ namespace Moms_food.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    User us = new User();
+                    us.Email = model.Email;
+                    us.id_identity = db.AspNetUsers.FirstOrDefault(p => p.Email == model.Email).Id;
+                    us.IsBanned = false;
+                    us.Status = "User";
+                    us.Name = model.Name;
+                    us.LastName = model.LastName;
+                    us.Date_inscription = DateTime.Now;
+                    db.User.Add(us);
+                  await  db.SaveChangesAsync();
+
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

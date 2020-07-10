@@ -1,22 +1,67 @@
 ﻿@using Microsoft.AspNet.Identity
+<link href="~/Content/css/UserInfoNav.css" rel="stylesheet" />
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-    </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @*@Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                <a id="EditUser" name="EditUser">
+                    okokok
+                    <img alt="Avatar" name="Uavatar" id="Uavatar" class="avatar">
+                </a>
+            </li>
+            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>*@
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+
+    <div class="user-panel">
+        <a>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</a>/
+        <a>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</a>
+    </div>
 }
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $.get("/Users/GetUserInfo", function (data) {
+            //$('#avatar').src = data.photo;
+            $("#Uavatar").attr("src", data.photo)
+            $("#EditUser").attr("href", "/Users/Edit/" + data.ID)
+
+            console.log(data.photo);
+
+
+        });
+
+
+
+
+
+
+
+    });
+
+            //$.get("/Users/GetUserInfo", function (data) {
+            //        console.log(data + "R");
+
+
+            //    console.log(data);
+            //    $('#Photo')[0].src = (window.URL ? URL : webkitURL).createObjectURL(data.photo);
+            //    //$("#avatar").val(data.photo)
+            //    //$("#EditUser").append("href","Users/Edit/"+data.ID)
+
+
+
+            //    });
+
+
+</script>
