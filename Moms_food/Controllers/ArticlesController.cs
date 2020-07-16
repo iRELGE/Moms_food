@@ -14,7 +14,7 @@ using Moms_food.Data.ArticlesModels;
 
 namespace Moms_food.Controllers
 {
-    [Authorize]
+    //[Authorize(Roles ="Admin")]
     public class ArticlesController : Controller
     {
         private Moms_FoodEntities db = new Moms_FoodEntities();

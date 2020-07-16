@@ -158,7 +158,7 @@ namespace Moms_food.Controllers
                 await db.SaveChangesAsync();
                 ViewBag.City = new SelectList("Value", "City");
                 ViewBag.Country = new SelectList("Value", "Country");
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {

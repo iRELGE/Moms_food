@@ -11,6 +11,7 @@
             <li>
                 @*@Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                 <a id="EditUser" name="EditUser">
+                    
                     okokok
                     <img alt="Avatar" name="Uavatar" id="Uavatar" class="avatar">
                 </a>
@@ -34,8 +35,15 @@ else
 
         $.get("/Users/GetUserInfo", function (data) {
             //$('#avatar').src = data.photo;
-            $("#Uavatar").attr("src", data.photo)
+           
             $("#EditUser").attr("href", "/Users/Edit/" + data.ID)
+            if (data.photo != null) {
+                $("#Uavatar").attr("src", data.photo)
+            }
+            else {
+                
+                $("#Uavatar").attr("src", "/img/default-profile.png")
+            }
 
             console.log(data.photo);
 
