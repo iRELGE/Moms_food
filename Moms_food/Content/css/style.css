@@ -871,6 +871,8 @@ ol {
 	padding: 5px 30px;
 	margin: 68px 0;
 	border-radius: 4px;
+    text-align:center;
+
 	background: #ff2a6b;
 	-webkit-box-shadow: 0px 90px 100px rgba(0, 0, 0, 0.4);
 	        box-shadow: 0px 90px 100px rgba(0, 0, 0, 0.4);

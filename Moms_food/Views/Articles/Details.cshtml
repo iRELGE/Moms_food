@@ -1,30 +1,30 @@
 ﻿@model Moms_food.Data.Articles
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Details";
 }
 <link href="~/Content/css/ratingStyle.css" rel="stylesheet" />
 
-<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+<section class="page-top-section set-bg" data-setbg="/img/foodpromo.jpg">
     <div class="container">
         <h2>@Model.Title</h2>
     </div>
 </section>
 <!-- Hero section end -->
-@*<!-- Search section -->
+<!-- Search section -->
     <div class="search-form-section">
         <div class="sf-warp">
             <div class="container">
                 <form class="big-search-form">
                     <select>
                         <option>All Recipes Categories</option>
-                        @foreach (var a in Model.)
-                        {
+                       
                         <option>Pizza</option>
                         <option>Salads</option>
                         <option>Desserts</option>
                         <option>Side Dishes</option>
-                        }
+                       
                     </select>
                     <select>
                         <option>All Ingredients</option>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <!-- Search section end -->*@
+    <!-- Search section end -->
 <!-- Recipe big view -->
 <div class="recipe-view-section">
     <div class="rv-warp set-bg" data-setbg=@Model.Photos></div>
@@ -56,7 +56,7 @@
             <div class="rating d-flex flex-row">
                 @{
                     double? note;
-                    if (Model.Reviews.Average(p => p.note)== null)
+                    if (Model.Reviews.Average(p => p.note) == null)
                     {
                         note = 0;
                     }
@@ -209,93 +209,136 @@
 <!-- Contenedor Principal -->
 
 <div class="comments-container">
-    
+
     <ul id="comments-list" class="comments-list">
-       @{int d=0;}
+       
         @foreach (var c in Model.Reviews)
         {
-        <li>
-            <div class="comment-main-level">
-                <!-- Avatar -->
-                @if (@c.User.photo != null)
-                {
-                    <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
-                }
-                else
-                {
-                    <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@c.User.Name></div>
-                }
-                <!-- Contenedor del Comentario -->
-                <div class="comment-box">
-                    <div class="comment-head">
-                        <h6 class="comment-name by-author"><a href="/Articles/Details/@c.ArticlesID">@c.User.Name</a></h6>
-                        <span>hace 20 minutos</span>
-                        <i class="fa fa-reply"></i>
-                        <i class="fa fa-heart"></i>
-                    </div>
-                    <div class="comment-content">
-                        @c.Description
-                    </div>
-                </div>
-            </div>
-            <!-- Respuestas de los comentarios -->
-            <ul class="comments-list reply-list">
-                @foreach (var a in c.Reviews_response)
-                {
-                <li>
+            <li>
+                <div class="comment-main-level">
                     <!-- Avatar -->
-                    @if (@a.User.photo != null)
+                    @if (@c.User.photo != null)
                     {
-                        <div class="comment-avatar"><img src=@a.User.photo alt=@a.User.Name></div>
+                        <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
                     }
                     else
                     {
-                        <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@a.User.Name></div>
+                        <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@c.User.Name></div>
                     }
                     <!-- Contenedor del Comentario -->
                     <div class="comment-box">
                         <div class="comment-head">
-                            <h6 class="comment-name"><a href="http://creaticode.com/blog">@a.User.Name</a></h6>
-                            <span>hace 10 minutos</span>
+                            <h6 class="comment-name by-author"><a href="/Articles/Details/@c.ArticlesID">@c.User.Name</a></h6>
+                            <span>hace 20 minutos</span>
                             <i class="fa fa-reply"></i>
                             <i class="fa fa-heart"></i>
                         </div>
                         <div class="comment-content">
-                            @a.Description
+                            @c.Description
                         </div>
                     </div>
-                </li>
-                }
-
-                <li>
-                    <!-- Avatar -->
-                    <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
-                    <!-- Contenedor del Comentario -->
-                    @using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                </div>
+                <!-- Respuestas de los comentarios -->
+                <ul class="comments-list reply-list">
+                    @foreach (var a in c.Reviews_response)
                     {
-                        @Html.Hidden("reviews_response.ReviewsID", c.ID)
-                        @Html.HiddenFor(model => model.ID)
+                        <li>
+                            <!-- Avatar -->
+                            @if (@a.User.photo != null)
+                            {
+                                <div class="comment-avatar"><img src=@a.User.photo alt=@a.User.Name></div>
+                            }
+                            else
+                            {
+                                <div class="comment-avatar"><img src=https://image.ibb.co/jw55Ex/def_face.jpg alt=@a.User.Name></div>
+                            }
+                            <!-- Contenedor del Comentario -->
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">@a.User.Name</a></h6>
+                                    <span>hace 10 minutos</span>
+                                    <i class="fa fa-reply"></i>
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="comment-content">
+                                    @a.Description
+                                </div>
+                            </div>
+                        </li>
+                    }
 
+                    <li>
+                        <!-- Avatar -->
+                        <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
+                        <!-- Contenedor del Comentario -->
+                        @using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.Hidden("reviews_response.ReviewsID", c.ID)
+                            @Html.HiddenFor(model => model.ID)
+
+                            @Html.AntiForgeryToken()
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                    <span>hace 10 minutos</span>
+                                    @{b = b + 1;}
+
+                                    <div class="rating">
+
+                                        <input type="radio" name="reviews_response.note" value="5" id="@b+5"><label for="@b+5">☆</label>
+                                        <input type="radio" name="reviews_response.note" value="4" id="@b+4"><label for="@b+4">☆</label>
+                                        <input type="radio" name="reviews_response.note" value="3" id="@b+3"><label for="@b+3">☆</label>
+                                        <input type="radio" name="reviews_response.note" value="2" id="@b+2"><label for="@b+2">☆</label>
+                                        <input type="radio" name="reviews_response.note" value="1" id="@b+1"><label for="@b+1">☆</label>
+                                    </div>
+                                </div>
+
+                                <div class="comment-content">
+
+                                    <input type="text" name="reviews_response.Description" class="col-md-12" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </li>
+                </ul>
+            </li>
+        }
+        @if (Model.Reviews.FirstOrDefault(a => a.User.Email == User.Identity.GetUserName())==null)
+        {
+
+            <li>
+                <div class="comment-main-level">
+                    <!-- Avatar -->
+                    <div class="comment-avatar"><img src="" alt=""></div>
+                    <!-- Contenedor del Comentario -->
+                    @using (Html.BeginForm("Create", "Articles", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.ID)
                         @Html.AntiForgeryToken()
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
                                 <span>hace 10 minutos</span>
-                                @{b = b + 1;}
 
+                                @{b = b + 1;}
                                 <div class="rating">
 
-                                    <input type="radio" name="reviews_response.note" value="5" id="@b+5"><label for="@b+5">☆</label>
-                                    <input type="radio" name="reviews_response.note" value="4" id="@b+4"><label for="@b+4">☆</label>
-                                    <input type="radio" name="reviews_response.note" value="3" id="@b+3"><label for="@b+3">☆</label>
-                                    <input type="radio" name="reviews_response.note" value="2" id="@b+2"><label for="@b+2">☆</label>
-                                    <input type="radio" name="reviews_response.note" value="1" id="@b+1"><label for="@b+1">☆</label>
+                                    <input type="radio" name="Reviews.note" value="5" id="@b+5"><label for="@b+5">☆</label>
+                                    <input type="radio" name="Reviews.note" value="4" id="@b+4"><label for="@b+4">☆</label>
+                                    <input type="radio" name="Reviews.note" value="3" id="@b+3"><label for="@b+3">☆</label>
+                                    <input type="radio" name="Reviews.note" value="2" id="@b+2"><label for="@b+2">☆</label>
+                                    <input type="radio" name="Reviews.note" value="1" id="@b+1"><label for="@b+1">☆</label>
                                 </div>
                             </div>
 
                             <div class="comment-content">
 
-                                <input type="text" name="reviews_response.Description" class="col-md-12" />
+                                <input type="text" name="Reviews.Description" class="col-md-12" />
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
@@ -303,55 +346,14 @@
                                 </div>
                             </div>
                         </div>
-                    }
-                </li>
-            </ul>
-        </li>
-        }
-       
-
-        <li>
-            <div class="comment-main-level">
-                <!-- Avatar -->
-                <div class="comment-avatar"><img src="" alt=""></div>
-                <!-- Contenedor del Comentario -->
-                @using (Html.BeginForm("Create", "Articles", FormMethod.Post))
-                {
-                    @Html.HiddenFor(model => model.ID)
-                    @Html.AntiForgeryToken()
-                    <div class="comment-box">
-                        <div class="comment-head">
-                            <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                            <span>hace 10 minutos</span>
-
-                            @{b = b + 1;}
-                            <div class="rating">
-                                
-                                <input type="radio" name="Reviews.note" value="5" id="@b+5"><label for="@b+5">☆</label>
-                                <input type="radio" name="Reviews.note" value="4" id="@b+4"><label for="@b+4">☆</label>
-                                <input type="radio" name="Reviews.note" value="3" id="@b+3"><label for="@b+3">☆</label>
-                                <input type="radio" name="Reviews.note" value="2" id="@b+2"><label for="@b+2">☆</label>
-                                <input type="radio" name="Reviews.note" value="1" id="@b+1"><label for="@b+1">☆</label>
-                            </div>
-                        </div>
-
-                        <div class="comment-content">
-
-                            <input type="text" name="Reviews.Description" class="col-md-12" />
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                            </div>
-                        </div>
-                    </div>
-                                }
-            </div>
-           
+                                    }
+                </div>
 
 
-        </li>
-                                
+
+            </li>
+                                    }
+
     </ul>
 </div>
 

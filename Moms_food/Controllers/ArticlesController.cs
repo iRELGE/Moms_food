@@ -53,7 +53,7 @@ namespace Moms_food.Controllers
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(ArticleViewModel Art)
         {
             string idUserR = User.Identity.GetUserId();

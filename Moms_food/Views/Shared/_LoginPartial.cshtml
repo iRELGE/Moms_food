@@ -12,7 +12,7 @@
                 @*@Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                 <a id="EditUser" name="EditUser">
                     
-                    okokok
+                    <h2 id="Uname"></h2>
                     <img alt="Avatar" name="Uavatar" id="Uavatar" class="avatar">
                 </a>
             </li>
@@ -43,8 +43,9 @@ else
             else {
                 
                 $("#Uavatar").attr("src", "/img/default-profile.png")
+                $("#Uavatar").attr("src", "/img/default-profile.png")
             }
-
+        
             console.log(data.photo);
 
 

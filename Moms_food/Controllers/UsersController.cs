@@ -99,6 +99,7 @@ namespace Moms_food.Controllers
 
             us.photo = infos.photo;
             us.ID = infos.ID;
+            us.Name = infos.Name;
 
             return Json(us, JsonRequestBehavior.AllowGet);
         }
