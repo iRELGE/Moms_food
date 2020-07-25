@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Moms_food.Data.Food_categories>
+
+<div class="sf-warp">
+    <div class="container">
+        <form class="big-search-form">
+            <select>
+                @foreach (var a in Model)
+                {
+                    <option value="@a.Id">@a.name</option>
+                }
+
+            </select>
+            <select>
+                <option>All Ingredients</option>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+            </select>
+            <input type="text" placeholder="Search Receipies">
+            <button class="bsf-btn">Search</button>
+        </form>
+    </div>
+</div>

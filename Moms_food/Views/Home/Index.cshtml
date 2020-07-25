@@ -9,7 +9,7 @@
     <div class="hero-slider owl-carousel">
         @foreach (var a in Model.slider.Take(3))
         {
-            <a href=@a.link>
+            <a href="/Articles/details/@a.Article_id">
                 <div class="hero-slide-item set-bg" data-setbg=@a.Photo>
                     <div class="hs-text">
                         <h2 class="hs-title-1"><span>@a.Articles.Food_categories.name</span></h2>
@@ -28,7 +28,7 @@
     <div class="container">
         <div class="add-warp">
             <div class="add-slider owl-carousel">
-                @foreach (var a in Model.slider)
+                @foreach (var a in Model.slider.Take(3))
                 {
                     <div class="as-item set-bg" data-setbg=@a.Photo></div>
                 }
@@ -168,7 +168,8 @@
                     <h3>Most liked recipes</h3>
                 </div>
                 <ul class="sp-recipes-list">
-                    @foreach (var a in Model.article.OrderByDescending(p => p.Reviews.Count()).Take(5))
+                   
+                   @foreach (var a in Model.article.OrderByDescending(p => p.Reviews.Count()).Take(5).ToList())
                     {
                     <li>
                         <div class="rl-thumb set-bg" data-setbg=@a.Photos></div>
@@ -178,7 +179,7 @@
                             <div class="rating">
                                 @{
                                     double? note;
-                                    if (a.Reviews.Average(p => p.note)== null)
+                                    if (a.Reviews.Average(p => p.note) == null)
                                     {
                                         note = 0;
                                     }
@@ -206,7 +207,8 @@
                             </div>
                         </div>
                     </li>
-                    }
+                                    }
+                                    
 
                 </ul>
             </div>

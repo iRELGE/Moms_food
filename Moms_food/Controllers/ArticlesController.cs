@@ -25,6 +25,7 @@ namespace Moms_food.Controllers
             var articles = db.Articles.Include(a => a.User);
             return View(articles.ToList());
         }
+       
 
         // GET: Articles/Details/5
         public ActionResult Details(int? id)
@@ -69,6 +70,9 @@ namespace Moms_food.Controllers
                     articles.Photos = "/img/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/img"), fileName);
                     Art.ImgFile.SaveAs(fileName);
+
+                    
+
                     articles.Title = Art.Title;
                     articles.Description = Art.Description;
                     string iduser = User.Identity.GetUserId();
@@ -80,6 +84,18 @@ namespace Moms_food.Controllers
 
                     db.Articles.Add(articles);
                     await db.SaveChangesAsync();
+                    fileName = Path.GetFileNameWithoutExtension(Art.ImgFilePromo.FileName);
+                    extension = Path.GetExtension(Art.ImgFilePromo.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    Slider slider = new Slider();
+                    slider.Article_id = articles.ID;
+                    slider.Photo = "/img/" + fileName;
+                    db.Slider.Add(slider);
+                    await db.SaveChangesAsync();
+                   
+                    fileName = Path.Combine(Server.MapPath("~/img"), fileName);
+                    Art.ImgFilePromo.SaveAs(fileName);
+
                     List<ingredient> ingrs = new List<ingredient>();
                     foreach (var a in Art.ingredient)
                     {
@@ -100,6 +116,7 @@ namespace Moms_food.Controllers
                         stps.Add(stp);
                     }
                     db.Steps.AddRange(stps);
+                    await db.SaveChangesAsync();
                     ingredient ing = new ingredient();
                     ing.Article_id = articles.ID;
 

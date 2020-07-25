@@ -13,35 +13,37 @@
 </section>
 <!-- Hero section end -->
 <!-- Search section -->
-    <div class="search-form-section">
-        <div class="sf-warp">
-            <div class="container">
-                <form class="big-search-form">
-                    <select>
-                        <option>All Recipes Categories</option>
-                       
-                        <option>Pizza</option>
-                        <option>Salads</option>
-                        <option>Desserts</option>
-                        <option>Side Dishes</option>
-                       
-                    </select>
-                    <select>
-                        <option>All Ingredients</option>
-                        <option>Breakfast</option>
-                        <option>Lunch</option>
-                        <option>Dinner</option>
-                    </select>
-                    <input type="text" placeholder="Search Receipies">
-                    <button class="bsf-btn">Search</button>
-                </form>
-            </div>
+<div class="search-form-section">
+    <div class="sf-warp">
+        <div class="container">
+            <form class="big-search-form">
+                <select>
+                    <option>All Recipes Categories</option>
+
+                    <option>Pizza</option>
+                    <option>Salads</option>
+                    <option>Desserts</option>
+                    <option>Side Dishes</option>
+
+                </select>
+                <select>
+                    <option>All Ingredients</option>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                </select>
+                <input type="text" placeholder="Search Receipies">
+                <button class="bsf-btn">Search</button>
+            </form>
         </div>
     </div>
-    <!-- Search section end -->
+</div>
+<!-- Search section end -->
 <!-- Recipe big view -->
+
 <div class="recipe-view-section">
-    <div class="rv-warp set-bg" data-setbg=@Model.Photos></div>
+
+    <div class="rv-warp set-bg" data-setbg=@Model.Slider.FirstOrDefault(p => p.Article_id == Model.ID).Photo></div>
 </div>
 
 <!-- Recipe details section -->
@@ -51,8 +53,8 @@
             <div class="racipe-cata">
                 <span>@Model.Food_categories.name</span>
             </div>
-            <h2>Lamb Chops with green peper sauce</h2>
-            <div class="recipe-date">May 15, 2018</div>
+            <h2>@Model.Title</h2>
+            <div class="recipe-date"> @Model.Date_creation.Value.ToString("MMMM dd, yyyy")</div>
             <div class="rating d-flex flex-row">
                 @{
                     double? note;
@@ -211,7 +213,7 @@
 <div class="comments-container">
 
     <ul id="comments-list" class="comments-list">
-       
+
         @foreach (var c in Model.Reviews)
         {
             <li>
@@ -269,7 +271,7 @@
 
                     <li>
                         <!-- Avatar -->
-                        <div class="comment-avatar"><img src=@c.User.photo alt=@c.User.Name></div>
+                        <div class="comment-avatar"><img name="Uavatar2" id="Uavatar2"></div>
                         <!-- Contenedor del Comentario -->
                         @using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
@@ -279,7 +281,7 @@
                             @Html.AntiForgeryToken()
                             <div class="comment-box">
                                 <div class="comment-head">
-                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                    <h6 class="comment-name"><a href="#">Lorena Rojero</a></h6>
                                     <span>hace 10 minutos</span>
                                     @{b = b + 1;}
 
@@ -308,13 +310,13 @@
                 </ul>
             </li>
         }
-        @if (Model.Reviews.FirstOrDefault(a => a.User.Email == User.Identity.GetUserName())==null)
+        @if (Model.Reviews.FirstOrDefault(a => a.User.Email == User.Identity.GetUserName()) == null)
         {
 
             <li>
                 <div class="comment-main-level">
                     <!-- Avatar -->
-                    <div class="comment-avatar"><img src="" alt=""></div>
+                    <div class="comment-avatar"><img name="Uavatar2" id="Uavatar2" /></div>
                     <!-- Contenedor del Comentario -->
                     @using (Html.BeginForm("Create", "Articles", FormMethod.Post))
                     {
@@ -322,7 +324,7 @@
                         @Html.AntiForgeryToken()
                         <div class="comment-box">
                             <div class="comment-head">
-                                <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                <h6 class="comment-name"><a href="#">Lorena Rojero</a></h6>
                                 <span>hace 10 minutos</span>
 
                                 @{b = b + 1;}
@@ -346,13 +348,13 @@
                                 </div>
                             </div>
                         </div>
-                                    }
+                    }
                 </div>
 
 
 
             </li>
-                                    }
+        }
 
     </ul>
 </div>
@@ -387,11 +389,50 @@
     </section>*@
 <!-- Comment section -->
 <script>
-    //$(document).ready(function () {
-    //    $('.kv-ltr-theme-default-star').rating({
-    //        hoverOnClear: false,
-    //        containerClass: 'is-star'
-    //    });
-    //});
+    $(document).ready(function () {
+
+
+        $.get("/Users/GetUserInfo", function (data) {
+            //$('#avatar').src = data.photo;
+
+            //$("#EditUser").attr("href", "/Users/Edit/" + data.ID)
+            if (data.photo != null) {
+                $("#Uavatar2").attr("src", data.photo)
+               
+                $("#Uavatar2").attr("alt", data.Name)
+            }
+            else {
+
+                $("#Uavatar2").attr("src", "/img/default-profile.png")
+                $("#Uavatar2").attr("src", "/img/default-profile.png")
+            }
+
+            console.log(data.photo);
+
+
+        });
+
+
+
+
+
+
+
+    });
+
+            //$.get("/Users/GetUserInfo", function (data) {
+            //        console.log(data + "R");
+
+
+            //    console.log(data);
+            //    $('#Photo')[0].src = (window.URL ? URL : webkitURL).createObjectURL(data.photo);
+            //    //$("#avatar").val(data.photo)
+            //    //$("#EditUser").append("href","Users/Edit/"+data.ID)
+
+
+
+            //    });
+
+
 </script>
 

@@ -13,7 +13,7 @@
                 <a id="EditUser" name="EditUser">
                     
                     <h2 id="Uname"></h2>
-                    <img alt="Avatar" name="Uavatar" id="Uavatar" class="avatar">
+                    <img  name="Uavatar" id="Uavatar" class="avatar">
                 </a>
             </li>
             @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>*@
@@ -39,6 +39,7 @@ else
             $("#EditUser").attr("href", "/Users/Edit/" + data.ID)
             if (data.photo != null) {
                 $("#Uavatar").attr("src", data.photo)
+                $("#Uavatar").attr("alt", data.Name)
             }
             else {
                 

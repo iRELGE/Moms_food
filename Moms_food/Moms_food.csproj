@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SlidersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -581,9 +582,11 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
     <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Recipes\SearchIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

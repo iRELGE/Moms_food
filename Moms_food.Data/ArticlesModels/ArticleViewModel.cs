@@ -17,12 +17,15 @@ namespace Moms_food.Data.ArticlesModels
         public string Description { get; set; }
         public string Photos { get; set; }
         public int Categorie_id { get; set; }
-        [DisplayName("Posted File")]
-        public HttpPostedFileBase ImgFile { get; set; }
         public List<string> ingredient { get; set; }
         public List<string> step { get; set; }
         public Reviews Reviews { get; set; }
         public Reviews_response reviews_response { get; set; }
+        [DisplayName("Posted File")]
+        public HttpPostedFileBase ImgFile { get; set; }
+        [DisplayName("Posted File promo")]
+        public HttpPostedFileBase ImgFilePromo { get; set; }
+       
 
     }
 }

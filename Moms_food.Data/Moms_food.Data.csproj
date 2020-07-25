@@ -67,6 +67,7 @@
       <DependentUpon>MF.tt</DependentUpon>
     </Compile>
     <Compile Include="ArticlesModels\ArticleViewModel.cs" />
+    <Compile Include="ArticlesModels\CategorieViewModel.cs" />
     <Compile Include="ArticlesModels\HomeViewModel.cs" />
     <Compile Include="ArticlesModels\ingredientViewModel.cs" />
     <Compile Include="ArticlesModels\SliderVoewModel.cs" />

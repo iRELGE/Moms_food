@@ -1,4 +1,5 @@
 ﻿using Moms_food.Data;
+using Moms_food.Data.ArticlesModels;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace Moms_food.Controllers
             
             return View(db.Articles.ToList().ToPagedList(i ?? 1, 12));
             
+        }
+        public ActionResult IndexBySearch(CategorieViewModel cvm)
+        {
+            var articles = db.Articles.Include(a => a.User);
+            return View(articles.ToList());
         }
     }
 }

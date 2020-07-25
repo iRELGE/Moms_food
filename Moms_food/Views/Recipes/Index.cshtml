@@ -1,4 +1,5 @@
 ﻿@model IPagedList<Moms_food.Data.Articles>
+
 @using PagedList.Mvc;
 @using PagedList;
 
@@ -9,7 +10,7 @@
 <!-- Hero section -->
 
 <section class="page-top-section set-bg" data-setbg="/img/foodpromo.jpg">
-  
+
     <div class="container">
         <h2>Recipes</h2>
     </div>
@@ -19,24 +20,25 @@
 <div class="search-form-section">
     <div class="sf-warp">
         <div class="container">
-            <form class="big-search-form">
-                <select>
-                    <option>All Recipes Categories</option>
-                    <option>Pizza</option>
-                    <option>Salads</option>
-                    <option>Desserts</option>
-                    <option>Side Dishes</option>
-                </select>
-                <select>
-                    <option>All Ingredients</option>
-                    <option>Breakfast</option>
-                    <option>Lunch</option>
-                    <option>Dinner</option>
-                </select>
-                <input type="text" placeholder="Search Receipies">
-                <button class="bsf-btn">Search</button>
-            </form>
-        </div>
+            @using (Html.BeginForm("IndexBySearch", "Recipes", FormMethod.Post, new { enctype = "multipart/form-data" ,@class="big-search-form" }))
+            {
+                @Html.AntiForgeryToken()
+               
+                    <select name="fc" id="fc">
+                        <option>All Recipes Categories</option>
+
+                    </select>
+                    <select>
+                        <option>All Ingredients</option>
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                    </select>
+                    <input type="text" placeholder="Search Receipies">
+                    <button class="bsf-btn">Search</button>
+               
+            }
+            </div>
     </div>
 </div>
 <!-- Search section end -->
@@ -110,3 +112,23 @@
     </div>
 </section>
 <!-- Recipes section end -->
+<script>
+    $(document).ready(function () {
+
+       
+        $.get("/Search/GetCategorie", function (data) {
+                console.log(data + "R");
+    
+                $.each(data, function (index, row) {
+                    $("#fc").append("<option value ='" + row.Id + "'>" + row.name + "</option>")
+                });
+
+
+        });
+
+        
+           
+
+    });
+</script>
+

@@ -166,8 +166,8 @@
                                                             <div class="form-group">
                                                                
                                                                 <div class="col-md-14">
-                                                                    @Html.DropDownList("Country", null, "Choose a Country", htmlAttributes: new { @class = "form-control" })
-                                                                    @Html.ValidationMessageFor(Model => Model.Country, "", new { @class = "text-danger" })
+                                                                    @Html.DropDownList("Country", new SelectList(""), "Choose a Country", htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(Model => Model.Country, null, new { @class = "text-danger" })
                                                                 </div>
 
                                                             </div>
@@ -195,7 +195,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label>Phone</label>
-                                                                <input class="form-control" type="text" name="Telephone" value="@Model.Telephone" placeholder="Phone">
+                                                                <input class="form-control" type="tel" name="Telephone" value="@Model.Telephone" placeholder="Phone">
                                                             </div>
                                                         </div>
                                                     </div>
