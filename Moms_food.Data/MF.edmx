@@ -87,6 +87,16 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="250" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="Food_categories">
           <Key>
             <PropertyRef Name="Id" />
@@ -152,6 +162,16 @@
           <Property Name="ArticlesID" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="255" />
           <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="250" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -402,6 +422,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Food_categories" EntityType="Self.Food_categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ingredient" EntityType="Self.ingredient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
@@ -409,6 +430,7 @@
           <EntitySet Name="Reviews-response" EntityType="Self.Reviews-response" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Steps" EntityType="Self.Steps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Articles_categ" Association="Self.FK_Articles_categ">
@@ -491,6 +513,7 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Moms_FoodModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Moms_FoodModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Moms_FoodModel.AspNetUsers" />
+          <EntitySet Name="Contact" EntityType="Moms_FoodModel.Contact" />
           <EntitySet Name="Food_categories" EntityType="Moms_FoodModel.Food_categories" />
           <EntitySet Name="ingredient" EntityType="Moms_FoodModel.ingredient" />
           <EntitySet Name="Photos" EntityType="Moms_FoodModel.Photos" />
@@ -498,6 +521,7 @@
           <EntitySet Name="Reviews_response" EntityType="Moms_FoodModel.Reviews_response" />
           <EntitySet Name="Slider" EntityType="Moms_FoodModel.Slider" />
           <EntitySet Name="Steps" EntityType="Moms_FoodModel.Steps" />
+          <EntitySet Name="Table" EntityType="Moms_FoodModel.Table" />
           <EntitySet Name="Tag" EntityType="Moms_FoodModel.Tag" />
           <EntitySet Name="User" EntityType="Moms_FoodModel.User" />
           <AssociationSet Name="FK_Articles_categ" Association="Moms_FoodModel.FK_Articles_categ">
@@ -641,6 +665,16 @@
           <NavigationProperty Name="User" Relationship="Moms_FoodModel.FK_User_identityId" FromRole="AspNetUsers" ToRole="User" />
           <NavigationProperty Name="AspNetRoles" Relationship="Moms_FoodModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Food_categories">
           <Key>
             <PropertyRef Name="Id" />
@@ -717,6 +751,16 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Articles" Relationship="Moms_FoodModel.FKSteps414313" FromRole="Steps" ToRole="Articles" />
           <NavigationProperty Name="Photos" Relationship="Moms_FoodModel.FKPhotos857504" FromRole="Steps" ToRole="Photos" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -994,6 +1038,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Contact">
+            <EntityTypeMapping TypeName="Moms_FoodModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Food_categories">
             <EntityTypeMapping TypeName="Moms_FoodModel.Food_categories">
               <MappingFragment StoreEntitySet="Food_categories">
@@ -1064,6 +1119,17 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ArticlesID" ColumnName="ArticlesID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table">
+            <EntityTypeMapping TypeName="Moms_FoodModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

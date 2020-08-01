@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Moms_food.Data.Contact
+@{
     ViewBag.Title = "Contact";
 }
 
@@ -41,22 +42,26 @@
             <div class="col-lg-8">
                 <div class="contact-form-warp">
                     <h4>Leave a comment</h4>
-                    <form class="contact-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Name">
+                    @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class= "contact-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                       
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input name="Name" type="text" placeholder="Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="Email" type="text" placeholder="E-mail">
+                                </div>
+                                <div class="col-md-12">
+                                    <input name="Subject" type="text" placeholder="Subject">
+                                    <textarea name="Message" placeholder="Message"></textarea>
+                                    <button class="site-btn">Send</button>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" placeholder="E-mail">
-                            </div>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Subject">
-                                <textarea placeholder="Message"></textarea>
-                                <button class="site-btn">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                        
+                    }
+                    </div>
             </div>
             <div class="col-lg-4">
                 <div class="contact-logo">
@@ -91,6 +96,6 @@
             </div>
         </div>
         <!-- map -->
-        <div class="location-map" id="map-canvas"></div>
+        @*<div class="location-map" id="map-canvas"></div>*@
     </div>
 </section>

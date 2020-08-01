@@ -28,9 +28,24 @@ namespace Moms_food.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+           
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult Contact(Contact contact)
+        {
+            try
+            {
+                db.Contact.Add(contact);
+                db.SaveChanges();
+                return View();
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
+           
         }
     }
 }

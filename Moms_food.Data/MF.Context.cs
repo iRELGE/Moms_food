@@ -31,6 +31,7 @@ namespace Moms_food.Data
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<Food_categories> Food_categories { get; set; }
         public virtual DbSet<ingredient> ingredient { get; set; }
         public virtual DbSet<Photos> Photos { get; set; }
@@ -38,6 +39,7 @@ namespace Moms_food.Data
         public virtual DbSet<Reviews_response> Reviews_response { get; set; }
         public virtual DbSet<Slider> Slider { get; set; }
         public virtual DbSet<Steps> Steps { get; set; }
+        public virtual DbSet<Table> Table { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

@@ -85,6 +85,9 @@
       <DependentUpon>MF.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Contact.cs">
+      <DependentUpon>MF.tt</DependentUpon>
+    </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MF.tt</DependentUpon>
     </Compile>
@@ -123,6 +126,9 @@
       <DependentUpon>MF.tt</DependentUpon>
     </Compile>
     <Compile Include="Steps.cs">
+      <DependentUpon>MF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Table.cs">
       <DependentUpon>MF.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">
