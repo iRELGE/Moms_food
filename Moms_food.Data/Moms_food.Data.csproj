@@ -158,6 +158,7 @@
       <LastGenOutput>MF.Context.cs</LastGenOutput>
       <DependentUpon>MF.edmx</DependentUpon>
     </Content>
+    <Content Include="MF.edmx.sql" />
     <Content Include="MF.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MF.edmx</DependentUpon>
